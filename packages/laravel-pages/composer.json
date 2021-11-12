@@ -1,0 +1,38 @@
+{
+    "name": "aw-studio/laravel-pages",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jannes Behrens",
+            "email": "jannes@aw-studio.de"
+        }
+    ],
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "require": {
+        "astrotomic/laravel-fileable": "^0.3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "AwStudio\\Pages\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "AwStudio\\Pages\\PagesServiceProvider"
+            ]
+        },
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
