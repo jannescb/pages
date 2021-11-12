@@ -1,6 +1,10 @@
 <template>
-    <div class="grid grid-cols-5">
-        <div class="h-screen col-span-4 px-12 overflow-y-scroll bg-primary-50">
+    <div class="grid grid-cols-6">
+        <div class="h-screen col-span-2 p-2 overflow-y-scroll bg-white">
+            <pre class="mb-2">{{ form.content.sections }}</pre>
+            <pre>{{ registeredSections }}</pre>
+        </div>
+        <div class="h-screen col-span-3 px-12 overflow-y-scroll bg-primary-50">
             <div class="flex justify-end pt-6 space-x-3 text-xs border-t">
                 <button
                     :class="{ 'font-bold': collapse }"
@@ -17,8 +21,6 @@
             </div>
 
             <Sections v-model="form.content.sections" />
-
-            <pre>{{ form.content.sections }}</pre>
         </div>
         <div
             class="sticky top-0 flex flex-col items-end justify-between h-screen col-span-1 px-8 py-4 bg-white "
@@ -46,6 +48,12 @@
             <div class="flex items-center flex-1 w-full">
                 <div class="w-full">
                     <Cabinet class="w-full col-span-1 space-y-2">
+                        <Drawer
+                            class="px-6 py-4 bg-gray-100 rounded"
+                            :as="CardsSection"
+                        >
+                            <div>ss</div>
+                        </Drawer>
                         <Drawer
                             class="px-6 py-4 bg-gray-100 rounded"
                             :as="TextSection"
@@ -82,11 +90,15 @@ import {
     defineContent,
     collapse,
     registerSections,
+    registeredSections,
 } from '@aw-studio/pages';
 import { useForm } from '@inertiajs/inertia-vue3';
 
 import TextSection from '@/sections/TextSection/TextSection.vue';
-registerSections([TextSection]);
+import CardsSection from '@/sections/CardSection/CardsSection.vue';
+import CardSection from '@/sections/CardSection/CardSection.vue';
+
+registerSections({ CardsSection, CardSection, TextSection });
 
 const props = defineProps({
     page: {

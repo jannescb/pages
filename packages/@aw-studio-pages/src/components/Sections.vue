@@ -15,45 +15,18 @@
     >
         <template #item="{ element }">
             <div>
-                ---
                 <component
-                    :is="getComponentBeyKey(element.key)"
+                    :is="registeredSections[element.key]"
                     :element="element"
                 />
-                ----
-            </div>
-        </template>
-        <template #footer v-if="section?.children?.length > 0">
-            <div class="col-span-full">
-                <button
-                    class="flex items-center px-6 py-2 text-sm text-black bg-white border border-black rounded-sm "
-                    v-for="child in section.children"
-                    @click="addSection(child)"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="-4.5 -4.5 24 24"
-                        class="w-4 h-4 -ml-2 fill-current"
-                    >
-                        <path
-                            d="M8.9 6.9v-5a1 1 0 1 0-2 0v5h-5a1 1 0 1 0 0 2h5v5a1 1 0 1 0 2 0v-5h5a1 1 0 1 0 0-2h-5z"
-                        ></path>
-                    </svg>
-                    {{ child.key }}
-                </button>
             </div>
         </template>
     </draggable>
 </template>
 <script setup lang="ts">
-import { ref, watch, PropType, computed } from 'vue';
+import { ref, watch, PropType } from 'vue';
 import draggable from 'vuedraggable';
-import {
-    SectionInterface,
-    cloneSection,
-    getSectionByKey,
-    getComponentBeyKey,
-} from './../index';
+import { SectionInterface, registeredSections } from './../index';
 
 const props = defineProps({
     modelValue: {
@@ -78,10 +51,6 @@ const dragOptions = ref({
 });
 const sections = ref<SectionInterface[]>(props.modelValue);
 
-const addSection = (el: string) => {
-    sections.value.push(cloneSection(getComponentBeyKey(el)));
-};
-
 watch(
     () => sections,
     (state, prevState) => {
@@ -89,13 +58,6 @@ watch(
     },
     { deep: true }
 );
-
-const children = computed(() => {
-    if (!props.section) {
-        return;
-    }
-    return getSectionByKey(props.section.key)?.children;
-});
 </script>
 
 <style>
