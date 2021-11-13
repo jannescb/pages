@@ -1,7 +1,9 @@
 <template>
-    <div class="p-4 bg-white rounded shadow">
-        <input type="text" v-model="element.attributes.foo" />
+    <SectionWrapper>
+        <input type="text" v-model="element.attributes.foo.value" />
+        <input type="text" v-model="element.attributes.boom" />
 
+        <hr />
         <Sections
             v-model="element.sections"
             :section="element"
@@ -10,14 +12,15 @@
 
         <Cabinet class="w-full col-span-1 space-y-2" :group="element.uuid">
             <Drawer class="px-6 py-4 bg-gray-100 rounded" :as="TextSection">
-                <strong>Image</strong>
+                Add Card
             </Drawer>
         </Cabinet>
-    </div>
+    </SectionWrapper>
 </template>
 <script setup lang="ts">
 import TextSection from './TextSection.vue';
-import { defineSection, Sections, Cabinet, Drawer } from '@aw-studio/pages';
+import { defineSection, Cabinet, Drawer, Sections } from '@aw-studio/pages';
+import SectionWrapper from '@/components/SectionWrapper.vue';
 
 defineProps({
     as: {
@@ -34,7 +37,11 @@ defineProps({
             defineSection({
                 key: 'TextSection',
                 attributes: {
-                    foo: 'Bar',
+                    foo: {
+                        value: 'bar',
+                        relation: 'Baz',
+                    },
+                    boom: null,
                 },
                 sections: [],
                 children: ['TextSection'],

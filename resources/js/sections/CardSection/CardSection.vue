@@ -1,15 +1,11 @@
 <template>
-    <div class="p-4 rounded shadow bg-green">
-        Card
-        <Sections
-            v-model="element.sections"
-            :section="element"
-            :group="element.uuid"
-        />
+    <div class="col-span-1 p-4 rounded shadow bg-green">
+        <input type="text" v-model="element.attributes.title" />
+        <input type="text" v-model="element.attributes.body" />
     </div>
 </template>
 <script setup lang="ts">
-import { defineSection, Sections } from '@aw-studio/pages';
+import { defineSection } from '@aw-studio/pages';
 
 defineProps({
     as: {
@@ -25,7 +21,10 @@ defineProps({
         default: () =>
             defineSection({
                 key: 'CardSection',
-                attributes: { fo: 'bar' },
+                attributes: {
+                    title: null,
+                    body: null,
+                },
             }),
     },
 });
